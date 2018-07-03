@@ -1,0 +1,26 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <title>List Of Courses</title>
+</head>
+<body>
+<h1>List Of Courses</h1>
+<table width="100%" border="1">
+    <tr style="background-color:gray">
+        <th>Title</th>
+        <th>Duration(Hours)</th>
+        <th>Course Fee (INR)</th>
+    </tr>
+
+    {% for c in courses %}
+     <tr>
+          <td>{{c.title}}</td>
+          <td>{{c.duration}}</td>
+          <td>{{c.fee | floatformat:2 }}</td>
+     </tr>
+    {% endfor %}
+
+</table>
+</body>
+</html>
