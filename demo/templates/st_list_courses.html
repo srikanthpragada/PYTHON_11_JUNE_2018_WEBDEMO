@@ -1,0 +1,36 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <title>List Of Courses</title>
+</head>
+<body>
+<h1>List Of Courses</h1>
+<table width="100%" border="1">
+    <tr style="background-color:gray">
+        <th>Id</th>
+        <th>Title</th>
+        <th>Duration(Hours)</th>
+        <th>Course Fee (INR)</th>
+        <th></th>
+    </tr>
+
+    {% for c in courses %}
+     <tr>
+          <td>{{c.0}}</td>
+          <td>{{c.1}}</td>
+          <td>{{c.2}}</td>
+          <td>{{c.3 | floatformat:2 }}</td>
+          <td>
+              [<a href="/demo/st_deletecourse?id={{c.0}}">Delete</a>]
+              [<a href="/demo/st_editcourse?id={{c.0}}">Edit</a>]
+          </td>
+     </tr>
+    {% endfor %}
+
+</table>
+
+<p/>
+<a href="/demo/st_addcourse/">Add Course</a>
+</body>
+</html>

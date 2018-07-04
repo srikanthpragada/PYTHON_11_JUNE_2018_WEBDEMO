@@ -1,0 +1,30 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <title>Add Course</title>
+</head>
+<body>
+<h1>Add Course</h1>
+<form action="" method="post">
+    {% csrf_token %}
+    Course Id <br/>
+    <input type="text" name="id"/>
+    <p></p>
+    Course Title <br/>
+    <input type="text" name="title"/>
+    <p></p>
+    Course Duration(hours) <br/>
+    <input type="text" name="duration"/>
+    <p></p>
+    Course Fee (INR) <br/>
+    <input type="text" name="fee"/>
+    <p/>
+    <input type="submit" value="Add Course"/>
+    <p></p>
+    <div style="color:red">{{message}}</div>
+</form>
+<p></p>
+<a href="/demo/st_listcourses/">List Courses</a>
+</body>
+</html>
