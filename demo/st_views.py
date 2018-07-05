@@ -6,25 +6,29 @@ import sqlite3
 
 def add_course(request):
     message = ""
+    con = sqlite3.connect(r"e:\classroom\python\st.db")
+    cur = con.cursor()
     if request.method == "POST":
         # take data from POST dict
         row = (request.POST["id"], request.POST["title"],
                request.POST["duration"], request.POST["fee"])
-
-        con = sqlite3.connect(r"e:\classroom\python\st.db")
-
         try:
-            cur = con.cursor()
             cur.execute("insert into courses values(?,?,?,?)", row)
             con.commit()
             message = "Added Course Successfully!"
+            # increment id by 1
+            id = int(row[0]) + 1
         except Exception as ex:
             print("Sorry! Error: ", ex)
             message = "Sorry! Could not add course!"
         finally:
             con.close()
+    else:  # Get
+        cur.execute("select max(id) + 1 from courses")
+        row = cur.fetchone()
+        id = row[0]  # next id
 
-    return render(request, 'st_add_course.html', {"message": message})
+    return render(request, 'st_add_course.html', {"id": id, "message": message})
 
 
 def list_courses(request):

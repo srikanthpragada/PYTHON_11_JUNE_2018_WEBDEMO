@@ -9,7 +9,7 @@
 <form action="" method="post">
     {% csrf_token %}
     Course Id <br/>
-    <input type="text" name="id"/>
+    <input type="text" name="id" value="{{id}}" readonly />
     <p></p>
     Course Title <br/>
     <input type="text" name="title"/>

@@ -1,0 +1,24 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <title>Select Language</title>
+</head>
+<body>
+<h1>Language Selection</h1>
+
+<form action="/demo/save_lang/" method="post">
+    {% csrf_token %}
+    Select Language :
+      <select name="lang">
+          <option>Java</option>
+          <option>Python</option>
+          <option>C#</option>
+          <option>JavaScript</option>
+      </select>
+    <p></p>
+    <input type="submit" value="Save" />
+</form>
+
+</body>
+</html>

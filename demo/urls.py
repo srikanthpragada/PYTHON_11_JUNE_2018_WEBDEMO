@@ -12,6 +12,11 @@ urlpatterns = [
     path('st_addcourse/', st_views.add_course),
     path('st_listcourses/', st_views.list_courses),
     path('st_deletecourse/', st_views.delete_course),
+    path('select_lang/', views.select_lang),
+    path('save_lang/', views.save_lang),
+    path('listblogs/', views.list_blogs),
+    path('addlang/', views.add_lang),
+    path('listlangs/', views.list_langs),
 
 
 ]
