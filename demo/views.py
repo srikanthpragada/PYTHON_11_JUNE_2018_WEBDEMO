@@ -43,13 +43,15 @@ def add_lang(request):
         if 'langs' in request.session:
             langs = request.session["langs"]
             langs.append(lang)
+            request.session["langs"] = langs
         else:
-            request.sessions['langs'] = [lang]  # add key langs to session
+            request.session['langs'] = [lang]  # add key langs to session
 
-        return HttpResponseRedirect("/demo/list_langs")
+        return HttpResponseRedirect("/demo/listlangs")
 
 
 def list_langs(request):
+    print(request.session["langs"])
     return render(request, 'list_langs.html', {"langs": request.session["langs"]})
 
 
