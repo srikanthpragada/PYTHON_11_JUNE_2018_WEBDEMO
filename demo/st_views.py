@@ -2,6 +2,33 @@ from django.shortcuts import render
 from django.http import HttpResponseRedirect
 from .models import Course
 import sqlite3
+from .forms import AddCourseForm
+
+
+def add_course_with_form(request):
+    message = ""
+    if request.method == "POST":
+        f = AddCourseForm(request.POST)
+        if f.is_valid():
+            try:
+                con = sqlite3.connect(r"e:\classroom\python\st.db")
+                cur = con.cursor()
+                row = ( f.cleaned_data['id'], f.cleaned_data['title'],
+                        f.cleaned_data['duration'], f.cleaned_data['fee'])
+                cur.execute("insert into courses values(?,?,?,?)", row)
+                con.commit()
+                message = "Added Course Successfully!"
+                f = AddCourseForm()   # empty form
+            except Exception as ex:
+                print("Sorry! Error: ", ex)
+                message = "Sorry! Could not add course!"
+            finally:
+                con.close()
+
+    else:  # get
+        f = AddCourseForm()  # create empty form
+
+    return render(request, 'st_add_course_with_form.html', {'form': f, 'message' : message})
 
 
 def add_course(request):

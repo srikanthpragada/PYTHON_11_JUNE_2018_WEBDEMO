@@ -51,7 +51,6 @@ def add_lang(request):
 
 
 def list_langs(request):
-    print(request.session["langs"])
     return render(request, 'list_langs.html', {"langs": request.session["langs"]})
 
 

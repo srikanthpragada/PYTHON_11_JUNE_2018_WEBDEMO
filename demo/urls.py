@@ -17,6 +17,7 @@ urlpatterns = [
     path('listblogs/', views.list_blogs),
     path('addlang/', views.add_lang),
     path('listlangs/', views.list_langs),
+    path('st_addcourse_form/', st_views.add_course_with_form),
 
 
 ]
