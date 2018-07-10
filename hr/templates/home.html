@@ -1,0 +1,53 @@
+{% extends "master.html" %}
+
+{% block title %} Home {% endblock %}
+{% block content %}
+<h2>Departments</h2>
+<table border="1" cellpadding="5pt">
+    <tr>
+        <th>Id</th>
+        <th>Name</th>
+        <th>Location</th>
+        <th></th>
+    </tr>
+    {% for d in depts %}
+     <tr>
+         <td> {{d.id }} </td>
+         <td> {{d.name }} </td>
+         <td> {{d.location }} </td>
+         <td>
+             <a href="/hr/editdept/{{d.id}}">Edit</a>
+             &nbsp;
+             <a href="/hr/deletedept/{{d.id}}">Delete</a>
+         </td>
+     </tr>
+    {% endfor %}
+</table>
+
+
+<h2>Employees</h2>
+<table border="1" cellpadding="5pt">
+    <tr>
+        <th>Id</th>
+        <th>Name</th>
+        <th>Job</th>
+        <th>Salary</th>
+        <th>Department</th>
+        <th></th>
+    </tr>
+    {% for e in emps %}
+     <tr>
+         <td> {{e.id }} </td>
+         <td> {{e.name }} </td>
+         <td> {{e.job }} </td>
+         <td> {{e.salary }} </td>
+         <td> {{e.department.name }} </td>
+         <td>
+             <a href="/hr/editemp?id={{e.id}}">Edit</a>
+             &nbsp;
+             <a href="/hr/deleteemp?id={{e.id}}">Delete</a>
+         </td>
+     </tr>
+    {% endfor %}
+</table>
+{% endblock%}

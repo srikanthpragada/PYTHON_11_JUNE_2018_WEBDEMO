@@ -1,0 +1,14 @@
+{% extends "master.html" %}
+
+{% block title %}Add Department {% endblock %}
+{% block content %}
+<h2>Add Department</h2>
+<form action="" method="post">
+    {% csrf_token %}
+    <table>
+        {{form}}
+    </table>
+    <p/>
+    <input type="submit" value="Add Department" />
+</form>
+{% endblock%}
