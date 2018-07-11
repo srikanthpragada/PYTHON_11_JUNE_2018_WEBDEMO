@@ -1,0 +1,42 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <title>Ajax Demo</title>
+    <script src="https://ajax.aspnetcdn.com/ajax/jQuery/jquery-3.3.1.min.js"></script>
+    <script>
+        function gettime() {
+              $.get("/demo/ajax_now",{}, showtime);
+        }
+
+        function showtime(response) {
+              $("#time").text(response)
+        }
+
+        function getdepts() {
+              $.getJSON("/demo/ajax_depts",{}, showdepts);
+        }
+
+        function showdepts(depts) {
+              $("#depts").html("");  // clear items from UL
+              $.each(depts,
+                 function(idx,dept)
+                 {
+                    $("#depts").append("<li>" + dept.name + " - " + dept.location + "</li>");
+                 }
+              );
+        }
+
+    </script>
+</head>
+<body>
+<h2>Ajax Demo</h2>
+<button onclick="gettime()">Get Time</button>
+<h2 id="time"></h2>
+<button onclick="getdepts()">Get Departments</button>
+<ul id="depts">
+
+</ul>
+
+</body>
+</html>

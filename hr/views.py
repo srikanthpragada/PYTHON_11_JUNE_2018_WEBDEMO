@@ -31,3 +31,7 @@ def edit_dept(request, id):
         form = AddDeptForm(request.POST, instance=dept)
         form.save()  # Update
         return redirect("/hr/home")
+
+
+def search(request):
+    return render(request, 'search.html')
