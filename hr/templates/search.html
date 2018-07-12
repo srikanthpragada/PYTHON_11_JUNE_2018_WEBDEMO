@@ -2,33 +2,53 @@
 
 {% block title %} Home {% endblock %}
 {% block content %}
+<script src="https://ajax.aspnetcdn.com/ajax/jQuery/jquery-3.3.1.min.js"></script>
+<script>
+    function search_depts()
+    {
+       $.getJSON("/hr/search_depts/?q=" + $("#name").val(),{},showResults);
+    }
+
+    function showResults(depts) {
+       // console.log(depts)
+       $("#message").css("visibility","hidden")
+       $("#depts").css("visibility","hidden")
+
+       if (depts.length == 0)
+           $("#message").css("visibility","visible")
+       else
+       {
+           $("#depts").css("visibility","visible")
+           $("#deptrows").html("")   // Clear table body
+           $.each(depts,
+              function(idx,dept) {
+                 $("#deptrows").append("<tr><td>" + dept.id + "</td><td>" +
+                       dept.name + "</td><td>" + dept.location + "</td><td>" +
+                          "<a href='/hr/editdept/" + dept.id + "'>Edit</a> </td></tr>");
+              }
+           );
+       }
+
+    }
+</script>
+
 <h2>Search Departments</h2>
 Name : <input type="text" id="name"/>
-<button>Search</button>
-
-<div id="details" style="visibility:hidden">
+<button onclick="search_depts()">Search</button>
+<p/>
+<div id="message" style="visibility:hidden">Sorry! No departments found!</div>
+<div id="depts" style="visibility:hidden">
     <table border="1" cellpadding="5pt">
+        <thead>
         <tr>
             <th>Id</th>
             <th>Name</th>
             <th>Location</th>
             <th></th>
         </tr>
-        {% for d in depts %}
-        <tr>
-            <td> {{d.id }}</td>
-            <td> {{d.name }}</td>
-            <td> {{d.location }}</td>
-            <td>
-                <a href="/hr/editdept/{{d.id}}">Edit</a>
-                &nbsp;
-                <a href="/hr/deletedept/{{d.id}}">Delete</a>
-            </td>
-        </tr>
-        {% endfor %}
+        </thead>
+        <tbody id="deptrows"></tbody>
     </table>
-
-
 </div>
 
 {% endblock%}

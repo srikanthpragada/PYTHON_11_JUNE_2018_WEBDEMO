@@ -1,10 +1,13 @@
 
 from django.contrib import admin
 from django.urls import path
+from . class_views import AboutView, DeptListView
 from . import views, st_views, ajax_views
 
 urlpatterns = [
     path('welcome/', views.welcome),
+    path('about/', AboutView.as_view()),
+    path('depts/', DeptListView.as_view()),
     path('ajax_demo/', ajax_views.ajax_demo),
     path('ajax_now/', ajax_views.ajax_now),
     path('ajax_depts/', ajax_views.ajax_departments),

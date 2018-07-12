@@ -1,4 +1,5 @@
 from django.shortcuts import render, redirect
+from django.http import JsonResponse
 from .models import Department, Employee
 from .forms import AddDeptForm
 
@@ -35,3 +36,11 @@ def edit_dept(request, id):
 
 def search(request):
     return render(request, 'search.html')
+
+
+def search_depts(request):
+    pattern = request.GET["q"]
+    #  print(pattern)
+    depts = Department.objects.filter(name__contains=pattern).values()
+    list_depts = list(depts)
+    return JsonResponse(list_depts, safe=False)
