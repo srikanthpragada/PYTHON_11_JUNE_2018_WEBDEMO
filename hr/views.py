@@ -1,7 +1,7 @@
-from django.shortcuts import render, redirect
 from django.http import JsonResponse
-from .models import Department, Employee
+from django.shortcuts import render, redirect
 from .forms import AddDeptForm
+from .models import Department, Employee
 
 
 # Create your views here.
@@ -44,3 +44,8 @@ def search_depts(request):
     depts = Department.objects.filter(name__contains=pattern).values()
     list_depts = list(depts)
     return JsonResponse(list_depts, safe=False)
+
+
+
+
+

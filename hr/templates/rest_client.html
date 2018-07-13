@@ -1,0 +1,139 @@
+<html>
+<head>
+    <script src="https://ajax.aspnetcdn.com/ajax/jQuery/jquery-3.3.1.min.js"></script>
+    <script>
+
+    function getDepts()
+    {
+       $.getJSON("/hr/rest_depts/",{},showDepts);
+    }
+
+    function getDept()
+    {
+       $.getJSON("/hr/rest_depts/" + $("#deptid").val(), {}, showDept);
+    }
+
+    function showDept(dept)
+    {
+        $("#name").val(dept.name)
+        $("#location").val(dept.location)
+    }
+
+    function showDepts(depts) {
+       console.log(depts)
+       $("#deptrows").html("")
+       $.each(depts,
+              function(idx,dept) {
+                 $("#deptrows").append("<tr><td>" + dept.id + "</td><td>" +
+                       dept.name + "</td><td>" + dept.location + "</td></tr>");
+              } // anonymous function
+          ); // each()
+   } // show depts
+
+    function addDept()
+    {
+       $.ajax(
+          { "url": "/hr/rest_depts/",
+             "data": { "name" : $("#name").val(),
+                       "location" : $("#location").val()
+                     },
+             "type" : "post",
+             "success" : add_success,
+             "error" : add_error
+          }
+      ); // ajax()
+    }
+
+    function add_success()
+    {
+      alert("Added Dept Successfully");
+    }
+
+    function add_error()
+    {
+      alert("Could not add dept!");
+    }
+
+    function deleteDept()
+    {
+       $.ajax(
+          {  "url": "/hr/rest_depts/" + $("#deptid").val(),
+             "type" : "delete",
+             "success" : delete_success,
+             "error" : delete_error
+          }
+      ); // ajax()
+    }
+
+    function delete_success()
+    {
+      alert("Deleted Dept Successfully");
+    }
+
+    function delete_error()
+    {
+      alert("Could not delete dept!");
+    }
+
+
+    function updateDept()
+    {
+       $.ajax(
+          {  "url"     : "/hr/rest_depts/" + $("#deptid").val() + "/",
+             "data"    : { "name" : $("#name").val(),
+                          "location" : $("#location").val()
+                          },
+             "type"    : "put",
+             "success" : update_success,
+             "error"   : update_error
+          }
+      ); // ajax()
+    }
+
+    function update_success()
+    {
+      alert("Updated Dept Successfully");
+    }
+
+    function update_error()
+    {
+      alert("Could not update dept!");
+    }
+
+
+    </script>
+</head>
+<body>
+<h3>Department</h3>
+ID <br/>
+<input type="text" id="deptid"/>
+<p/>
+Name <br/>
+<input type="text" id="name"/>
+<p/>
+Location <br/>
+<input type="text" id="location"/>
+<p/>
+<button onclick="getDept()">Get </button>
+<button onclick="addDept()">Add </button>
+<button onclick="deleteDept()">Delete </button>
+<button onclick="updateDept()">Update </button>
+
+<p/>
+
+<table border="1" cellpadding="5pt">
+    <thead>
+    <tr>
+        <th>Id</th>
+        <th>Name</th>
+        <th>Location</th>
+    </tr>
+    </thead>
+    <tbody id="deptrows"></tbody>
+</table>
+<button onclick="getDepts()">Get Departments</button>
+<p></p>
+
+
+</body>
+</html>
